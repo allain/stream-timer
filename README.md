@@ -50,4 +50,6 @@ streamArray(data)
   .pipe(timer.restart())
   .pipe(concat())
   .pipe(timer.tick())
-  .pipe(timer.tick());  
+  .pipe(timer.tick());
+
+```

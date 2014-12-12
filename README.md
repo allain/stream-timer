@@ -20,7 +20,10 @@ npm install --save stream-timer
 * `[logger]`  (Function): function which accepts a message to log, if not given, defaults to console.log
 
 
-### `StreamTimer.prototype.tick()`
+### `StreamTimer.prototype.tick([label])`
+
+#### parameters
+* `[label]`   (String): optional label to be used when displaying the ellapsed time of this tick
 
 #### returns
 

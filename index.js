@@ -2,29 +2,33 @@ var through2 = require("through2");
 
 module.exports = StreamTimer;
 
-function StreamTimer(name, logger) {
-	name = name || 'timer';
+function StreamTimer(timerName, logger) {
+	timerName = timerName || 'timer';
 	logger = logger || function(msg) { console.log(msg); };
 
-	var startTime = Date.now();
+	this.tick = function(tickName) {
+		var tickSuffix = tickName ? " at " + tickName : "";
 
-	var stream = through2.obj(function(chunk, encoding, cb) {
-		var ellapsed = Date.now() - startTime;
+		return through2.obj(function(chunk, encoding, cb) {
+			var ellapsed = Date.now() - startTime;
 
-		logger(name + ": +" + ellapsed + "ms");
+			logger(timerName + ": +" + ellapsed + "ms" + tickSuffix);
 
-		this.push(chunk);
-		cb();
-	});
+			this.push(chunk);
 
-	stream.restart = through2.obj(function(chunk, encoding, cb) {
-		startTime = Date.now();
-		logger(name + ": started at " + startTime);
+			cb();
+		});
+	};
 
+	this.restart = function() {
+		return through2.obj(function(chunk, encoding, cb) {
+			startTime = Date.now();
 
-		this.push(chunk);
-		cb();
-	});
+			logger(timerName + ": started at " + startTime);
 
-	return stream;
+			this.push(chunk);
+
+			cb();
+		});
+	};
 }

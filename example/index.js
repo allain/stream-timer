@@ -6,11 +6,12 @@ var stdout = require("stdout");
 
 var data = ["foo", "bar", "fizz", "baz"];
 
-var timer = StreamTimer('example');
+var timer = new StreamTimer('example');
 
 streamArray(data)
 	.pipe(interval(1000))
-	.pipe(timer.restart)
+	.pipe(timer.restart())
 	.pipe(concat())
-	.pipe(timer) // Caused in finite loop? Fun times
-	.pipe(timer);
+	.pipe(timer.tick('tick1'))
+	.pipe(timer.tick('tick2'))
+	.pipe(stdout());

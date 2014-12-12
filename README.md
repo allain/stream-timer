@@ -10,22 +10,27 @@ A naive tool for easily timing stream operations.
 npm install --save stream-timer
 ```
 
-Use [browserify](http://browserify.org/) to make a bundle that uses this module.
-
 ## API
 
-### `StreamTimer([name], [logger])`
+### `new StreamTimer([name], [logger])`
 
 #### parameters
 
 * `[name]`    (String): name of the timer to display in the logs, if blank, uses "timer"
 * `[logger]`  (Function): function which accepts a message to log, if not given, defaults to console.log
 
+
+### `StreamTimer.prototype.tick()`
+
 #### returns
 
-* (Transform): Pipe elements into it and it will pass them through, reporting how much
-    time has ellapsed since the timer was last started
+*  (Transform) that prints the time elapsed since the timer was started.
 
+### `StreamTimer.prototype.restart()`
+
+#### returns
+
+*  (Transform) that restarts the timer and prints the current time
 
 ## Example
 
@@ -38,11 +43,11 @@ var streamArray = require("stream-array");
 
 var data = ["foo", "bar", "fizz", "baz"];
 
-var timer = StreamTimer('example');
+var timer = new StreamTimer('example');
 
 streamArray(data)
-.pipe(interval(1000))
-.pipe(timer.restart)
-.pipe(concat())
-.pipe(timer)
-.pipe(stdout);
+  .pipe(interval(1000))
+  .pipe(timer.restart())
+  .pipe(concat())
+  .pipe(timer.tick())
+  .pipe(timer.tick());  

@@ -1,5 +1,7 @@
 # stream-timer
 
+DO NOT USE YET. It's a work in progress
+
 A naive tool for easily timing stream operations.
 
 ## Installing

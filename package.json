@@ -29,7 +29,6 @@
   },
   "devDependencies": {
     "array-concat-stream": "^1.0.1",
-    "browserify": "^7.0.0",
     "interval-stream": "^0.2.0",
     "stdout": "0.0.3",
     "stream-array": "^1.0.1",

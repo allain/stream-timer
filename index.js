@@ -8,7 +8,7 @@ function StreamTimer(name, logger) {
 
 	var startTime = Date.now();
 
-	var stream = through2({decodeStrings: false}, function(chunk, encoding, cb) {
+	var stream = through2.obj(function(chunk, encoding, cb) {
 		var ellapsed = Date.now() - startTime;
 
 		logger(name + ": +" + ellapsed + "ms");
@@ -17,9 +17,10 @@ function StreamTimer(name, logger) {
 		cb();
 	});
 
-	stream.restart = through2({decodeStrings: false}, function(chunk, encoding, cb) {
+	stream.restart = through2.obj(function(chunk, encoding, cb) {
 		startTime = Date.now();
 		logger(name + ": started at " + startTime);
+
 
 		this.push(chunk);
 		cb();

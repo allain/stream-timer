@@ -1,6 +1,6 @@
 {
   "name": "stream-timer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A naive tool for timing stream operations.",
   "main": "index.js",
   "scripts": {

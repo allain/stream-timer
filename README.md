@@ -49,7 +49,8 @@ streamArray(data)
   .pipe(interval(1000))
   .pipe(timer.restart())
   .pipe(concat())
-  .pipe(timer.tick())
-  .pipe(timer.tick());
+  .pipe(timer.tick('step 1'))
+  .pipe(timer.tick('step 2'))
+  .pipe(stdout());
 
 ```
